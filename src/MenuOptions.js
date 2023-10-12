@@ -23,9 +23,9 @@ export class MenuOptions extends React.Component {
   }
 
   render() {
-    const { customStyles, style, children } = this.props
+    const { customStyles, style, children, ...otherProps } = this.props
     return (
-      <View style={[customStyles.optionsWrapper, style]}>
+      <View style={[customStyles.optionsWrapper, style]} {...otherProps}>
         {children}
       </View>
     )

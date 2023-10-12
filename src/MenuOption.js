@@ -34,7 +34,7 @@ export class MenuOption extends Component {
   }
 
   render() {
-    const { text, disabled, disableTouchable, children, style, testID } = this.props;
+    const { text, disabled, disableTouchable, children, style, testID, ...otherProps } = this.props;
     const customStyles = this._getCustomStyles()
     if (text && React.Children.count(children) > 0) {
       console.warn("MenuOption: Please don't use text property together with explicit children. Children are ignored.");
@@ -42,13 +42,13 @@ export class MenuOption extends Component {
     if (disabled) {
       const disabledStyles = [defaultStyles.optionTextDisabled, customStyles.optionText];
       return (
-        <View style={[defaultStyles.option, customStyles.optionWrapper, style]}>
+        <View style={[defaultStyles.option, customStyles.optionWrapper, style]} {...otherProps}>
           {text ? <Text style={disabledStyles}>{text}</Text> : children}
         </View>
       );
     }
     const rendered = (
-      <View style={[defaultStyles.option, customStyles.optionWrapper, style]}>
+      <View style={[defaultStyles.option, customStyles.optionWrapper, style]} {...otherProps}>
         {text ? <Text style={customStyles.optionText}>{text}</Text> : children}
       </View>
     );
@@ -63,6 +63,7 @@ export class MenuOption extends Component {
           onPress={() => this._onSelect()}
           {...defaultTouchableProps}
           {...customStyles.optionTouchable}
+          {...otherProps}
         >
           {rendered}
         </Touchable>
